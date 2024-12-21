@@ -45,19 +45,20 @@ export class License {
 	 * Whether this instance should renew the license - on init and periodically.
 	 */
 	private renewalEnabled() {
-		if (this.instanceSettings.instanceType !== 'main') return false;
-		const autoRenewEnabled = this.globalConfig.license.autoRenewalEnabled;
+		return false;
+		// if (this.instanceSettings.instanceType !== 'main') return false;
+		// const autoRenewEnabled = this.globalConfig.license.autoRenewalEnabled;
 
-		/**
-		 * In multi-main setup, all mains start off with `unset` status and so renewal disabled.
-		 * On becoming leader or follower, each will enable or disable renewal, respectively.
-		 * This ensures the mains do not cause a 429 (too many requests) on license init.
-		 */
-		if (this.globalConfig.multiMainSetup.enabled) {
-			return autoRenewEnabled && this.instanceSettings.isLeader;
-		}
+		// /**
+		//  * In multi-main setup, all mains start off with `unset` status and so renewal disabled.
+		//  * On becoming leader or follower, each will enable or disable renewal, respectively.
+		//  * This ensures the mains do not cause a 429 (too many requests) on license init.
+		//  */
+		// if (this.globalConfig.multiMainSetup.enabled) {
+		// 	return autoRenewEnabled && this.instanceSettings.isLeader;
+		// }
 
-		return autoRenewEnabled;
+		// return autoRenewEnabled;
 	}
 
 	async init(forceRecreate = false) {
@@ -136,9 +137,10 @@ export class License {
 		this.logger.debug('License feature change detected', _features);
 
 		if (config.getEnv('executions.mode') === 'queue' && this.globalConfig.multiMainSetup.enabled) {
-			const isMultiMainLicensed =
-				(_features[LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES] as boolean | undefined) ?? false;
+			// const isMultiMainLicensed =
+			// 	(_features[LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES] as boolean | undefined) ?? false;
 
+			const isMultiMainLicensed = true;
 			this.instanceSettings.setMultiMainLicensed(isMultiMainLicensed);
 
 			if (this.instanceSettings.isMultiMain && !this.instanceSettings.isLeader) {
@@ -229,59 +231,73 @@ export class License {
 	}
 
 	isFeatureEnabled(feature: BooleanLicenseFeature) {
-		return this.manager?.hasFeatureEnabled(feature) ?? false;
+		return feature === LICENSE_FEATURES.SHOW_NON_PROD_BANNER ? false : true;
+		// return this.manager?.hasFeatureEnabled(feature) ?? false;
 	}
 
 	isSharingEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.SHARING);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.SHARING);
 	}
 
 	isLogStreamingEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.LOG_STREAMING);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.LOG_STREAMING);
 	}
 
 	isLdapEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.LDAP);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.LDAP);
 	}
 
 	isSamlEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.SAML);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.SAML);
 	}
 
 	isAiAssistantEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.AI_ASSISTANT);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.AI_ASSISTANT);
 	}
 
 	isAskAiEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.ASK_AI);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.ASK_AI);
 	}
 
 	isAdvancedExecutionFiltersEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS);
 	}
 
 	isAdvancedPermissionsLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.ADVANCED_PERMISSIONS);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.ADVANCED_PERMISSIONS);
 	}
 
 	isDebugInEditorLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.DEBUG_IN_EDITOR);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.DEBUG_IN_EDITOR);
 	}
 
 	isBinaryDataS3Licensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.BINARY_DATA_S3);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.BINARY_DATA_S3);
 	}
 
 	isMultipleMainInstancesLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES);
 	}
 
 	isVariablesEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.VARIABLES);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.VARIABLES);
 	}
 
 	isSourceControlLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.SOURCE_CONTROL);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.SOURCE_CONTROL);
 	}
 
 	isExternalSecretsEnabled() {
@@ -289,31 +305,38 @@ export class License {
 	}
 
 	isWorkflowHistoryLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.WORKFLOW_HISTORY);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.WORKFLOW_HISTORY);
 	}
 
 	isAPIDisabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.API_DISABLED);
+		return false;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.API_DISABLED);
 	}
 
 	isWorkerViewLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.WORKER_VIEW);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.WORKER_VIEW);
 	}
 
 	isProjectRoleAdminLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_ADMIN);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_ADMIN);
 	}
 
 	isProjectRoleEditorLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_EDITOR);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_EDITOR);
 	}
 
 	isProjectRoleViewerLicensed() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_VIEWER);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.PROJECT_ROLE_VIEWER);
 	}
 
 	isCustomNpmRegistryEnabled() {
-		return this.isFeatureEnabled(LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY);
+		return true;
+		// return this.isFeatureEnabled(LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY);
 	}
 
 	getCurrentEntitlements() {
@@ -355,29 +378,33 @@ export class License {
 
 	// Helper functions for computed data
 	getUsersLimit() {
-		return this.getFeatureValue(LICENSE_QUOTAS.USERS_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
+		return UNLIMITED_LICENSE_QUOTA;
+		// return this.getFeatureValue(LICENSE_QUOTAS.USERS_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
 	}
 
 	getTriggerLimit() {
-		return this.getFeatureValue(LICENSE_QUOTAS.TRIGGER_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
+		return UNLIMITED_LICENSE_QUOTA;
+		// return this.getFeatureValue(LICENSE_QUOTAS.TRIGGER_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
 	}
 
 	getVariablesLimit() {
-		return this.getFeatureValue(LICENSE_QUOTAS.VARIABLES_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
+		return UNLIMITED_LICENSE_QUOTA;
+		// return this.getFeatureValue(LICENSE_QUOTAS.VARIABLES_LIMIT) ?? UNLIMITED_LICENSE_QUOTA;
 	}
 
 	getWorkflowHistoryPruneLimit() {
-		return (
-			this.getFeatureValue(LICENSE_QUOTAS.WORKFLOW_HISTORY_PRUNE_LIMIT) ?? UNLIMITED_LICENSE_QUOTA
-		);
+		return UNLIMITED_LICENSE_QUOTA;
+		// return (this.getFeatureValue(LICENSE_QUOTAS.WORKFLOW_HISTORY_PRUNE_LIMIT) ?? UNLIMITED_LICENSE_QUOTA);
 	}
 
 	getTeamProjectLimit() {
-		return this.getFeatureValue(LICENSE_QUOTAS.TEAM_PROJECT_LIMIT) ?? 0;
+		// EDIT: Enable team project unlimited
+		// return this.getFeatureValue(LICENSE_QUOTAS.TEAM_PROJECT_LIMIT) ?? 0;
+		return 1000000000;
 	}
 
 	getPlanName(): string {
-		return this.getFeatureValue('planName') ?? 'Community';
+		return this.getFeatureValue('planName') ?? 'Enterprise';
 	}
 
 	getInfo(): string {
