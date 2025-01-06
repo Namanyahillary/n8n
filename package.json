@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@9.15.1",
   "scripts": {
+    "n8n": ". ~/.nvm/nvm.sh && nvm use 20 && pnpm run start",
     "prepare": "node scripts/prepare.mjs",
     "preinstall": "node scripts/block-npm-install.js",
     "build": "turbo run build",
