@@ -80,7 +80,6 @@ export const ChatPlugin: Plugin<ChatOptions> = {
 			}
 
 			const sessionId = localStorage.getItem(localStorageSessionIdKey) ?? uuidv4();
-			console.log('sessionId', sessionId);
 			const previousMessagesResponse = await api.loadPreviousSession(
 				`${options.agentId ? options.agentId + '-' : ''}${sessionId}`,
 				options,
