@@ -17,7 +17,7 @@ const meta = {
 
 			return {};
 		},
-		template: '<div id="n8n-chat" />',
+		template: '<div id="auto-agent-chat" />',
 	}),
 	parameters: {
 		layout: 'fullscreen',

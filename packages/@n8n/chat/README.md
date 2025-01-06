@@ -1,8 +1,8 @@
-# n8n Chat
+# auto-agent Chat
 This is an embeddable Chat widget for n8n. It allows the execution of AI-Powered Workflows through a Chat window.
 
 **Windowed Example**
-![n8n Chat Windowed](https://raw.githubusercontent.com/n8n-io/n8n/master/packages/%40n8n/chat/resources/images/windowed.png)
+![auto-agent Chat Windowed](https://raw.githubusercontent.com/n8n-io/n8n/master/packages/%40n8n/chat/resources/images/windowed.png)
 
 **Fullscreen Example**
 ![n8n Chat Fullscreen](https://raw.githubusercontent.com/n8n-io/n8n/master/packages/%40n8n/chat/resources/images/fullscreen.png)
@@ -17,7 +17,7 @@ Open the **Chat Trigger** node and add your domain to the **Allowed Origins (COR
 > Make sure the workflow is **Active.**
 
 ### How it works
-Each Chat request is sent to the n8n Webhook endpoint, which then sends back a response.
+Each Chat request is sent to the auto-agent Webhook endpoint, which then sends back a response.
 
 Each request is accompanied by an `action` query parameter, where `action` can be one of:
 - `loadPreviousSession` - When the user opens the Chatbot again and the previous chat session should be loaded
@@ -108,7 +108,7 @@ createChat({
 		method: 'POST',
 		headers: {}
 	},
-	target: '#n8n-chat',
+	target: '#auto-agent-chat',
 	mode: 'window',
 	chatInputKey: 'chatInput',
 	chatSessionKey: 'sessionId',
@@ -146,7 +146,7 @@ createChat({
 
 ### `target`
 - **Type**: `string`
-- **Default**: `'#n8n-chat'`
+- **Default**: `'#auto-agent-chat'`
 - **Description**: The CSS selector of the element where the Chat window should be embedded.
 
 ### `mode`
@@ -263,7 +263,7 @@ In fullscreen mode, the Chat window will take up the entire width and height of 
 ```css
 html,
 body,
-#n8n-chat {
+#auto-agent-chat {
 	width: 100%;
 	height: 100%;
 }

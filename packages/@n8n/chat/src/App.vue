@@ -19,6 +19,6 @@ onMounted(() => {
 });
 </script>
 <template>
-	<Chat v-if="isFullscreen" class="n8n-chat" />
-	<ChatWindow v-else class="n8n-chat" />
+	<Chat v-if="isFullscreen" class="auto-agent-chat" />
+	<ChatWindow v-else class="auto-agent-chat" />
 </template>

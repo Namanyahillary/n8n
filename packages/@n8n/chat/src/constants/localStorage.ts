@@ -1,2 +1,2 @@
-export const localStorageNamespace = 'n8n-chat';
+export const localStorageNamespace = 'auto-agent-chat';
 export const localStorageSessionIdKey = `${localStorageNamespace}/sessionId`;

@@ -3,6 +3,7 @@ import type { Ref } from 'vue';
 import type { ChatMessage } from '@n8n/chat/types/messages';
 
 export interface Chat {
+	agentId: Ref<string | null>;
 	initialMessages: Ref<ChatMessage[]>;
 	messages: Ref<ChatMessage[]>;
 	currentSessionId: Ref<string | null>;

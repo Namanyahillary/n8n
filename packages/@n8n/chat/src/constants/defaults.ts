@@ -6,7 +6,7 @@ export const defaultOptions: ChatOptions = {
 		method: 'POST',
 		headers: {},
 	},
-	target: '#n8n-chat',
+	target: '#auto-agent-chat',
 	mode: 'window',
 	loadPreviousSession: true,
 	chatInputKey: 'chatInput',
@@ -25,6 +25,7 @@ export const defaultOptions: ChatOptions = {
 		},
 	},
 	theme: {},
+	agentId: '',
 };
 
-export const defaultMountingTarget = '#n8n-chat';
+export const defaultMountingTarget = '#auto-agent-chat';

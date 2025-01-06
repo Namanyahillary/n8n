@@ -2,6 +2,7 @@ import type { Component, Ref } from 'vue';
 
 export interface ChatOptions {
 	webhookUrl: string;
+	agentId: string;
 	webhookConfig?: {
 		method?: 'GET' | 'POST';
 		headers?: Record<string, string>;

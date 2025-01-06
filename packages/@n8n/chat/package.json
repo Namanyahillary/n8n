@@ -2,6 +2,7 @@
   "name": "@n8n/chat",
   "version": "0.33.0",
   "scripts": {
+    "build-chat": ". ~/.nvm/nvm.sh && nvm use 20 && npm run build && sudo rm -rf /var/www/html/n8n/chat/dist && sudo mkdir -p /var/www/html/n8n/chat && sudo mv ./dist /var/www/html/n8n/chat/",
     "dev": "pnpm run storybook",
     "build": "pnpm build:vite && pnpm build:bundle",
     "build:vite": "cross-env vite build",
@@ -22,9 +23,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/chat.es.js",
-      "require": "./dist/chat.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/chat.umd.js"
     },
     "./style.css": {
       "import": "./dist/style.css",

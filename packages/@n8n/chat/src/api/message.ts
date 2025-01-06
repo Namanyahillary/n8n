@@ -11,7 +11,7 @@ export async function loadPreviousSession(sessionId: string, options: ChatOption
 		`${options.webhookUrl}`,
 		{
 			action: 'loadPreviousSession',
-			[options.chatSessionKey as string]: sessionId,
+			[options.chatSessionKey as string]: `${sessionId}`,
 			...(options.metadata ? { metadata: options.metadata } : {}),
 		},
 		{
@@ -31,7 +31,7 @@ export async function sendMessage(
 			`${options.webhookUrl}`,
 			{
 				action: 'sendMessage',
-				[options.chatSessionKey as string]: sessionId,
+				[options.chatSessionKey as string]: `${options.agentId ? options.agentId + '-' : ''}${sessionId}`,
 				[options.chatInputKey as string]: message,
 				...(options.metadata ? { metadata: options.metadata } : {}),
 			},
@@ -46,7 +46,7 @@ export async function sendMessage(
 		`${options.webhookUrl}`,
 		{
 			action: 'sendMessage',
-			[options.chatSessionKey as string]: sessionId,
+			[options.chatSessionKey as string]: `${options.agentId ? options.agentId + '-' : ''}${sessionId}`,
 			[options.chatInputKey as string]: message,
 			...(options.metadata ? { metadata: options.metadata } : {}),
 		},

@@ -14,6 +14,7 @@ export const ChatPlugin: Plugin<ChatOptions> = {
 
 		const messages = ref<ChatMessage[]>([]);
 		const currentSessionId = ref<string | null>(null);
+		const agentId = ref<string | null>(null);
 		const waitingForResponse = ref(false);
 
 		const initialMessages = computed<ChatMessage[]>(() =>
@@ -79,7 +80,11 @@ export const ChatPlugin: Plugin<ChatOptions> = {
 			}
 
 			const sessionId = localStorage.getItem(localStorageSessionIdKey) ?? uuidv4();
-			const previousMessagesResponse = await api.loadPreviousSession(sessionId, options);
+			console.log('sessionId', sessionId);
+			const previousMessagesResponse = await api.loadPreviousSession(
+				`${options.agentId ? options.agentId + '-' : ''}${sessionId}`,
+				options,
+			);
 			const timestamp = new Date().toISOString();
 
 			messages.value = (previousMessagesResponse?.data || []).map((message, index) => ({
@@ -103,6 +108,7 @@ export const ChatPlugin: Plugin<ChatOptions> = {
 		}
 
 		const chatStore = {
+			agentId,
 			initialMessages,
 			messages,
 			currentSessionId,
