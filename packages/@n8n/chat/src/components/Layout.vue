@@ -3,6 +3,8 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { chatEventBus } from '@n8n/chat/event-buses';
 
+import ConversationSwitcher from './ConversationSwitcher.vue';
+
 const chatBodyRef = ref<HTMLElement | null>(null);
 
 function scrollToBottom() {
@@ -24,8 +26,11 @@ onBeforeUnmount(() => {
 </script>
 <template>
 	<main class="chat-layout">
-		<div v-if="$slots.header" class="chat-header">
+		<div class="chat-header">
 			<slot name="header" />
+		</div>
+		<div class="chat-header-content">
+			<ConversationSwitcher />
 		</div>
 		<div v-if="$slots.default" ref="chatBodyRef" class="chat-body">
 			<slot />
@@ -78,6 +83,12 @@ onBeforeUnmount(() => {
 		p {
 			font-size: var(--chat--subtitle--font-size, inherit);
 			line-height: var(--chat--subtitle--line-height, 1.8);
+		}
+		.chat-header-content {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			width: 100%;
 		}
 	}
 
